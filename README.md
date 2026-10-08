@@ -25,54 +25,7 @@
 11. [Testing Suite](#-testing-suite)
 12. [Model Card](#-model-card)
 
----
-
-## 🏛️ Architecture & Data Flow
-
-```mermaid
-flowchart TD
-    subgraph Data_Layer ["1. Data Layer & Ingestion"]
-        A[Raw Corpus: 6,335 News Articles] --> B[Stratified Split: 80% Train / 10% Val / 10% Test]
-        B --> C[EDA: Class Distribution & Word Lengths]
-    end
-
-    subgraph Preprocessing_Layer ["2. Text Preprocessing Pipeline (No Data Leakage)"]
-        B -->|Train Only| D[URL, HTML, Noise & Email Stripping]
-        D --> E[SpaCy Lemmatization & Stopword Pruning]
-    end
-
-    subgraph Feature_Union ["3. Scikit-Learn FeatureUnion (5,110 Total Features)"]
-        E --> F[TF-IDF Vectorizer: 1-gram + 2-gram, 5,000 Vocab]
-        E --> G[Gensim Word2Vec: 100-dim Skip-Gram Sentence Vectors]
-        D --> H[Auxiliary Linguistic Extractor: Readability, Sentiment, Style]
-        F & G & H --> I[Combined Feature Matrix: 5,110 Dense/Sparse Features]
-    end
-
-    subgraph Model_Zoo ["4. Multi-Model Benchmark (Stratified 5-Fold CV)"]
-        I --> J1[Logistic Regression]
-        I --> J2[Calibrated SVM / LinearSVC]
-        I --> J3[Random Forest]
-        I --> J4[Gradient Boosting]
-        I --> J5[XGBoost Classifier]
-        J1 & J2 & J3 & J4 & J5 --> K[GridSearchCV Hyperparameter Tuning]
-        K --> L["Model Selection: Best Model (F1 = 0.9467 > 0.88)"]
-    end
-
-    subgraph Explainability_Layer ["5. SHAP TreeExplainer & Credibility Engine"]
-        L --> M[Calibrated Softmax Probability P(Real)]
-        M --> N["Credibility Score = round(P(Real) * 100, 1)"]
-        L --> O[SHAP TreeExplainer Global Summary Plot]
-        L --> P[SHAP Force Plots: Real, Fake, Borderline Case Studies]
-    end
-
-    subgraph Serving_Layer ["6. Deployment & Serving"]
-        N & P --> Q["Flask REST API (POST /predict, GET /metrics, GET /health)"]
-        N & P --> R["Gradio Web UI (Visual Meter Gauge & Dynamic SHAP Bar Plot)"]
-    end
-```
-
----
-
+ 
 ## 🛠️ Tech Stack
 
 | Category | Technology | Purpose in NewsGuard |
