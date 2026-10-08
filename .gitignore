@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+mlruns/
+mlflow_runs/
+.env
+.venv/
+env/
+venv/
+*.log

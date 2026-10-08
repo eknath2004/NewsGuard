@@ -1,0 +1,24 @@
+{
+  "class_balance": {
+    "total_samples": 6335,
+    "real_count": 3171,
+    "fake_count": 3164,
+    "real_percentage": 50.06,
+    "fake_percentage": 49.94,
+    "imbalance_ratio": 1.002,
+    "is_balanced": true
+  },
+  "word_count_stats": {
+    "overall_mean": 786.7971586424625,
+    "overall_median": 608.0,
+    "real_mean": 883.118889940082,
+    "fake_mean": 690.2623261694058,
+    "real_median": 782.0,
+    "fake_median": 433.0
+  },
+  "char_count_stats": {
+    "overall_mean": 4773.261720599842,
+    "real_mean": 5354.498896247241,
+    "fake_mean": 4190.7386219974715
+  }
+}
